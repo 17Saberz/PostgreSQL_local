@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h3 class="my-2">{% if edit_mode %}Edit Note{% else %}Create Note{% endif %}</h3>
+
+{% if form.errors %}
+<div class="alert alert-danger">
+  <ul>
+    {% for field, errors in form.errors.items() %}
+      {% for error in errors %}
+        <li><strong>{{ field }}:</strong> {{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<form method="POST" action="">
+  {{ form.hidden_tag() }}
+
+  <div class="form-group my-3">
+    {{ form.title.label }}
+    {{ form.title(class_='form-control') }}
+  </div>
+
+  <div class="form-group my-3">
+    {{ form.description.label }}
+    {{ form.description(class_='form-control', rows=5) }}
+  </div>
+
+  <div class="form-group my-3">
+    {{ form.tags.label }}
+    {{ form.tags(class_='form-control') }}
+  </div>
+
+  <button type="submit" class="btn btn-primary">
+    {% if edit_mode %}Save{% else %}Create{% endif %}
+  </button>
+</form>
+
+{% endblock %}
